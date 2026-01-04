@@ -1,0 +1,9 @@
+{
+  "name": "DisabilityRights Gov-LEA Hub",
+  "description": "A comprehensive 504 plan management and legal case building platform for disability rights advocacy, integrating diagnostic screeners, SSI/SSDI application tools, and §1983 civil rights litigation support with AI-driven legal guidance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
