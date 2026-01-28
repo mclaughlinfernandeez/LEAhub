@@ -19,14 +19,36 @@ export const chatWithLegalAIStream = async (message: string, history: any[] = []
 
 export const generateLegalBrief = async (caseData: any) => {
   const ai = getAI();
-  const prompt = `Generate a formal legal brief based on the following case data: ${JSON.stringify(caseData)}. Ensure it follows Federal District Court formatting. Include Sections: Table of Authorities, Statement of Facts, Argument, and Conclusion.`;
+  const prompt = `
+    TASK: Generate a "RIGOR-Secure++" Certified Legal Brief for an SSA Disability Claim.
+    
+    SYSTEM ARCHITECTURE DATA:
+    Manifest ID: ${caseData.manifest.id}
+    PQC Seal: ${caseData.manifest.pqcSeal}
+    Integrity Hash: ${caseData.manifest.integrityHash}
+    
+    CLAIMANT DATA (SSA-3368 & SSA-3373 Simplified):
+    ${JSON.stringify(caseData.formData)}
+    
+    INSTRUCTIONS:
+    1. bridge biological standing (Genetic PRS, fMRI) to legal concepts of disability.
+    2. REBUT "WILLFULNESS": Explain how executive function collapse (e.g., COMT marker) prevents standard procedural compliance without assistive AI.
+    3. ALIGN with SSA Listings: Specifically Listing 12.02 (Neurocognitive) or 12.11 (Neurodevelopmental).
+    4. STRUCTURE: 
+       - Table of Contents
+       - Statement of Scientific Standing (RIGOR-Secure++ Verification)
+       - Statement of Facts (Simplified Narrative)
+       - Technical-Legal-Medical Argument (Dissertation-Level Analysis)
+       - Conclusion & Request for "Digital Ramps" (AI Accommodations).
+    5. ADD a "Cryptographic Verification Seal" block at the end referencing the Manifest ID.
+  `;
   
   const response = await ai.models.generateContent({
     model: 'gemini-3-pro-preview',
     contents: prompt,
     config: {
       systemInstruction: LEGAL_SYSTEM_INSTRUCTION,
-      temperature: 0.3,
+      temperature: 0.2, 
     },
   });
   

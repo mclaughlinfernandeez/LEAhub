@@ -27,28 +27,20 @@ export interface Accommodation {
   description: string;
 }
 
-export interface GeneticData {
-  id: string;
-  tokenizedId: string; // GINA compliant token
-  locus: 'COMT' | 'SLC6A2' | 'BDNF' | 'DAT1' | 'DRD4';
-  genotype: string;
-  phenotype: string;
-  legalSignificance: string;
+export interface PRSResult {
+  score: number; // e.g. 2.45
+  percentile: number; // e.g. 98.2
+  listingAlignment: string; // e.g. "Listing 12.02 (Neurocognitive)"
+  marker: string; // e.g. "COMT rs4680 (Val/Val)"
+  evidenceHash: string; // SHA-256 string for RIGOR-Secure++
 }
 
-export interface NeuroImagingData {
+export interface SecureManifest {
   id: string;
-  type: 'fMRI' | 'sMRI' | 'PET';
-  findings: string;
-  activationMagnitude?: string;
-  clinicalInterpretation: string;
-}
-
-export interface EvidenceMatrixEntry {
-  biologicalFinding: string;
-  functionalImpact: string;
-  legalArgument: string;
-  statutoryRelevance: string;
+  pqcAlgorithm: 'ML-KEM-1024' | 'ML-DSA-87';
+  timestamp: string;
+  integritySeal: string;
+  semanticTraceUrl: string;
 }
 
 export interface Student {
